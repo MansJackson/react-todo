@@ -81,6 +81,10 @@ body {
   cursor: pointer;
 }
 
+.todo:focus {
+  outline: 2px solid white;
+}
+
 .todo_container {
   display: flex;
   flex-direction: column;
@@ -133,6 +137,13 @@ body {
 }
 
 .todo_icon:hover {
+  font-size: 2.3rem;
+  top: 7px;
+  right: 11px;
+}
+
+.todo_icon:focus {
+  outline: none;
   font-size: 2.3rem;
   top: 7px;
   right: 11px;

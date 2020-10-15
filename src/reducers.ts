@@ -1,8 +1,20 @@
-import { combineReducers } from "redux";
-import { FormAction, SET_TEXT, Todo, TodoAction, ADD_TODO, REMOVE_TODO, TOGGLE_COMPLETED, TOGGLE_EDIT } from "./types";
+import { combineReducers } from 'redux';
+import {
+  FormAction,
+  Todo,
+  TodoAction,
+  SET_TEXT,
+  ADD_TODO,
+  REMOVE_TODO,
+  TOGGLE_COMPLETED,
+  TOGGLE_EDIT,
+  EDIT_TEXT,
+} from './types';
 
-const initalFormState: string = '';
-const initialTodoState: Todo[] = [];
+const ls = window.localStorage.getItem('todos');
+const todosLS: Todo[] = ls ? JSON.parse(ls) as Todo[] : [];
+const initalFormState = '';
+const initialTodoState: Todo[] = todosLS;
 
 const formReducer = (state = initalFormState, action: FormAction) => {
   switch (action.type) {
@@ -11,7 +23,7 @@ const formReducer = (state = initalFormState, action: FormAction) => {
     default:
       return state;
   }
-}
+};
 
 const todoReducer = (state = initialTodoState, action: TodoAction) => {
   switch (action.type) {
@@ -23,18 +35,20 @@ const todoReducer = (state = initialTodoState, action: TodoAction) => {
           completed: false,
           edit: false,
         },
-        ...state
+        ...state,
       ];
     case REMOVE_TODO:
-      return state.filter(el => el.id !== action.id);
+      return state.filter((el) => el.id !== action.id);
     case TOGGLE_COMPLETED:
-      return state.map(el => el.id !== action.id ? el : { ...el, completed: !el.completed });
+      return state.map((el) => (el.id !== action.id ? el : { ...el, completed: !el.completed }));
     case TOGGLE_EDIT:
-      return state.map(el => el.id !== action.id ? el : { ...el, edit: !el.edit });
+      return state.map((el) => (el.id !== action.id ? el : { ...el, edit: !el.edit }));
+    case EDIT_TEXT:
+      return state.map((el) => (el.id !== action.id ? el : { ...el, text: action.text }));
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   formValue: formReducer,

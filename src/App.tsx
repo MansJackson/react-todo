@@ -1,4 +1,4 @@
-  
+// eslint-disable-next-line
 import React from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
