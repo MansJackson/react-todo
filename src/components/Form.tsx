@@ -1,14 +1,20 @@
 // eslint-disable-next-line
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodoAction, setFormTextAction } from '../actions';
+import { addTodoAction, notifyAction, setFormTextAction } from '../actions';
 import { RootState, TodoFormProps } from '../types';
 
 const TodoForm: React.FunctionComponent<TodoFormProps> = (props): JSX.Element => {
-  const { value, setValue, addTodo } = props;
+  const {
+    value, setValue, addTodo, notify,
+  } = props;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!value || value === '') {
+      notify('Fiel can not be empty');
+      return;
+    }
     addTodo(value);
     setValue('');
   };
@@ -38,4 +44,5 @@ const mapStateToProps = (state: RootState) => ({
 export default connect(mapStateToProps, {
   setValue: setFormTextAction,
   addTodo: addTodoAction,
+  notify: notifyAction,
 })(TodoForm);

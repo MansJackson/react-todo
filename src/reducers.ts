@@ -3,18 +3,34 @@ import {
   FormAction,
   Todo,
   TodoAction,
+  NotificationAction,
   SET_TEXT,
   ADD_TODO,
   REMOVE_TODO,
   TOGGLE_COMPLETED,
   TOGGLE_EDIT,
   EDIT_TEXT,
+  TOGGLE_SHOW,
+  SET_NOTIFICATION_TEXT,
 } from './types';
 
 const ls = window.localStorage.getItem('todos');
 const todosLS: Todo[] = ls ? JSON.parse(ls) as Todo[] : [];
-const initalFormState = '';
 const initialTodoState: Todo[] = todosLS;
+
+const initalFormState = '';
+const initialNotificationState = { text: '', show: false };
+
+const notificationReducer = (state = initialNotificationState, action: NotificationAction) => {
+  switch (action.type) {
+    case SET_NOTIFICATION_TEXT:
+      return { ...state, text: action.payload };
+    case TOGGLE_SHOW:
+      return { ...state, show: !state.show };
+    default:
+      return state;
+  }
+};
 
 const formReducer = (state = initalFormState, action: FormAction) => {
   switch (action.type) {
@@ -53,4 +69,5 @@ const todoReducer = (state = initialTodoState, action: TodoAction) => {
 export default combineReducers({
   formValue: formReducer,
   todos: todoReducer,
+  notification: notificationReducer,
 });

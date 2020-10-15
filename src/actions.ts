@@ -1,6 +1,13 @@
 import { Dispatch } from 'redux';
 import {
-  ADD_TODO, EDIT_TEXT, REMOVE_TODO, SET_TEXT, TOGGLE_COMPLETED, TOGGLE_EDIT,
+  ADD_TODO,
+  EDIT_TEXT,
+  REMOVE_TODO,
+  SET_NOTIFICATION_TEXT,
+  SET_TEXT,
+  TOGGLE_COMPLETED,
+  TOGGLE_EDIT,
+  TOGGLE_SHOW,
 } from './types';
 
 export const setFormTextAction = (text: string) => (dispatch: Dispatch): void => {
@@ -44,4 +51,20 @@ export const editTextAction = (text: string, id: number) => (dispatch: Dispatch)
     text,
     id,
   });
+};
+
+export const notifyAction = (text: string) => (dispatch: Dispatch): void => {
+  const duration = 3000;
+  dispatch({
+    type: SET_NOTIFICATION_TEXT,
+    payload: text,
+  });
+  dispatch({
+    type: TOGGLE_SHOW,
+  });
+  setTimeout(() => {
+    dispatch({
+      type: TOGGLE_SHOW,
+    });
+  }, duration);
 };

@@ -2,6 +2,7 @@
 import React from 'react';
 import Board from './Board';
 import Form from './Form';
+import Notification from './Notification';
 
 const Home: React.FunctionComponent = (): JSX.Element => (
   <>
@@ -13,6 +14,7 @@ const Home: React.FunctionComponent = (): JSX.Element => (
           <Board />
         </div>
       </div>
+      <Notification />
     </div>
   </>
 );

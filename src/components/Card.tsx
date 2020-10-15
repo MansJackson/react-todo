@@ -2,17 +2,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  editTextAction, removeTodoAction, toggleCompletedAction, toggleEditAction,
+  editTextAction, notifyAction, removeTodoAction, toggleCompletedAction, toggleEditAction,
 } from '../actions';
 import { CardProps, RootState, Todo } from '../types';
 
 const Card: React.FunctionComponent<CardProps> = (props): JSX.Element => {
   const {
-    data, toggleEdit, toggleCompleted, removeTodo, editText,
+    data, toggleEdit, toggleCompleted, removeTodo, editText, notify,
   } = props;
 
   const handleSubmitt = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!data.text || data.text === '') {
+      notify('Field can not be empty');
+      return;
+    }
     toggleEdit(data.id);
   };
 
@@ -130,4 +134,5 @@ export default connect(mapStateToProps, {
   toggleCompleted: toggleCompletedAction,
   removeTodo: removeTodoAction,
   editText: editTextAction,
+  notify: notifyAction,
 })(Card);

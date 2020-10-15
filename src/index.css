@@ -159,6 +159,36 @@ body {
   background: rgba(146, 146, 146, 0.295);
 }
 
+.notification {
+  padding: 1.5rem;
+  background: rgba(192, 113, 113, 0.858);
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 700px;
+  transition: all .3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+}
+
+.notification_text{
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+}
+
+@media all and (max-width: 700px) {
+  .notification {
+    width: 98vw;
+    bottom: 4px;
+    right: 4px;
+  }
+}
+
 @media all and (max-width: 600px) {
   .todo_container {
     width: auto;
@@ -181,9 +211,7 @@ body {
     font-size: 1.5rem;
     padding: .5rem;
   }
-}
 
-@media all and (max-width: 600px) {
   .outer_container {
     margin: .5rem;
     width: 100vw;
@@ -196,9 +224,6 @@ body {
   .title {
     margin: 1.5rem 0;
   }
-}
-
-@media all and (max-width: 600px) {
   .addtodo_input {
     font-size: 1.8rem;
     padding: .8rem;
